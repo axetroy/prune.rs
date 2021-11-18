@@ -71,6 +71,7 @@ fn main() {
                 .takes_value(false)
                 .about("remove file, defaults check only"),
         )
+        .arg(Arg::new("ROOT").about("prune dir").required(true).index(1))
         .get_matches();
 
     let mut ruler = Ruler {
@@ -79,6 +80,11 @@ fn main() {
         file: vec![".DS_Store", ".AppleDouble", ".DS_Store"],
         check_only: true,
     };
+
+    // You can check the value provided by positional arguments, or option arguments
+    if let Some(i) = matches.value_of("ROOT") {
+        println!("Value for input: {}", i);
+    }
 
     // You can check the value provided by positional arguments, or option arguments
     if matches.is_present("remove") {
