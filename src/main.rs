@@ -1,3 +1,4 @@
+use clap::{App, Arg};
 use std::env;
 use std::fs;
 use std::io;
@@ -59,12 +60,30 @@ struct Ruler<'a> {
 }
 
 fn main() {
-    let ruler = Ruler {
+    let matches = App::new("prune")
+        .version("v0.1.0")
+        .author("Axetroy <axetroy.dev@gmail.com>")
+        .about("Prune everything")
+        .arg(
+            Arg::new("remove")
+                .short('r')
+                .long("remove")
+                .takes_value(false)
+                .about("remove file, defaults check only"),
+        )
+        .get_matches();
+
+    let mut ruler = Ruler {
         ignore: vec![".git"],
         folder: vec!["node_modules", "bowerComponents"],
         file: vec![".DS_Store", ".AppleDouble", ".DS_Store"],
         check_only: true,
     };
+
+    // You can check the value provided by positional arguments, or option arguments
+    if matches.is_present("remove") {
+        ruler.check_only = false;
+    }
 
     let cwd = env::current_dir().unwrap();
 
