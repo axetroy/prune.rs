@@ -1,32 +1,70 @@
+use std::env;
 use std::fs;
+use std::io;
 use std::path::Path;
 use std::path::PathBuf;
 
-fn walk(dir: PathBuf, rules: &Vec<&str>) {
+pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
+    let path = path.as_ref();
+
+    let absolute_path = if path.is_absolute() {
+        path.to_path_buf()
+    } else {
+        env::current_dir()?.join(path)
+    };
+
+    Ok(absolute_path)
+}
+
+fn walk(dir: PathBuf, ruler: &Ruler) {
     let paths = fs::read_dir(dir).unwrap();
 
     for path in paths {
         let p = path.unwrap().path();
         let name = p.file_name().unwrap().to_str().unwrap();
 
+        if ruler.ignore.contains(&name) {
+            continue;
+        }
+
         if p.is_dir() {
-            if rules.contains(&name) {
-                println!("Found: {}", p.display());
+            if ruler.folder.contains(&name) {
+                if ruler.check_only {
+                    println!("{:?}", absolute_path(p).unwrap())
+                } else {
+                    // TODO: remove
+                }
                 continue;
             }
-            walk(p, &rules);
+
+            walk(p, &ruler);
         } else {
-            if rules.contains(&name) {
-                println!("Found: {}", p.display());
+            if ruler.file.contains(&name) {
+                if ruler.check_only {
+                    println!("{:?}", absolute_path(p).unwrap())
+                } else {
+                    // TODO: remove
+                }
                 continue;
             }
         }
     }
 }
 
-fn main() {
-    // 规则
-    let rules = vec![".git", "node_modules", "bowerComponents", ".gitignore"];
+struct Ruler<'a> {
+    ignore: Vec<&'a str>,
+    folder: Vec<&'a str>,
+    file: Vec<&'a str>,
+    check_only: bool,
+}
 
-    walk(Path::new("./aaa").to_path_buf(), &rules);
+fn main() {
+    let ruler = Ruler {
+        ignore: vec![".git"],
+        folder: vec!["node_modules", "bowerComponents"],
+        file: vec![".DS_Store", ".AppleDouble", ".DS_Store"],
+        check_only: true,
+    };
+
+    walk(Path::new("./").to_path_buf(), &ruler);
 }
