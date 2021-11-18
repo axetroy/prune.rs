@@ -32,7 +32,7 @@ fn walk(dir: PathBuf, ruler: &Ruler) {
                 if ruler.check_only {
                     println!("{:?}", absolute_path(p).unwrap())
                 } else {
-                    // TODO: remove
+                    fs::remove_dir_all(p.as_path()).unwrap()
                 }
                 continue;
             }
@@ -43,7 +43,7 @@ fn walk(dir: PathBuf, ruler: &Ruler) {
                 if ruler.check_only {
                     println!("{:?}", absolute_path(p).unwrap())
                 } else {
-                    // TODO: remove
+                    fs::remove_file(p.as_path()).unwrap()
                 }
                 continue;
             }
@@ -66,5 +66,7 @@ fn main() {
         check_only: true,
     };
 
-    walk(Path::new("./").to_path_buf(), &ruler);
+    let cwd = env::current_dir().unwrap();
+
+    walk(cwd.to_path_buf(), &ruler);
 }
