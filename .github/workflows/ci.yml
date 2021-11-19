@@ -76,22 +76,22 @@ jobs:
       - name: Build (linux)
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          # for build aarch64-unknown-linux-gnu
-          sudo apt-get -y install gcc-9-aarch64-linux-gnu
-          sudo apt-get -y install gcc-aarch64-linux-gnu
+          # for build aarch64-unknown-linux-musl
+          sudo apt-get -y install gcc-9-aarch64-linux-musl
+          sudo apt-get -y install gcc-aarch64-linux-musl
 
-          rustup target add x86_64-unknown-linux-gnu
-          rustup target add i686-unknown-linux-gnu
-          rustup target add aarch64-unknown-linux-gnu
-          cargo build --release --locked --target x86_64-unknown-linux-gnu
-          cargo build --release --locked --target i686-unknown-linux-gnu
-          cargo build --release --locked --target aarch64-unknown-linux-gnu
-          strip target/x86_64-unknown-linux-gnu/release/prune
-          strip target/i686-unknown-linux-gnu/release/prune
-          strip target/aarch64-unknown-linux-gnu/release/prune
-          zip -r target/x86_64-unknown-linux-gnu/release/prune_linux_amd64.tar.gz target/x86_64-unknown-linux-gnu/release/prune
-          tar -cvzf target/i686-unknown-linux-gnu/release/prune_darwin_amd64.tar.gz target/i686-unknown-linux-gnu/release/prune
-          tar -cvzf target/aarch64-unknown-linux-gnu/release/prune_darwin_amd64.tar.gz target/aarch64-unknown-linux-gnu/release/prune
+          rustup target add x86_64-unknown-linux-musl
+          rustup target add i686-unknown-linux-musl
+          rustup target add aarch64-unknown-linux-musl
+          cargo build --release --locked --target x86_64-unknown-linux-musl
+          cargo build --release --locked --target i686-unknown-linux-musl
+          cargo build --release --locked --target aarch64-unknown-linux-musl
+          strip target/x86_64-unknown-linux-musl/release/prune
+          strip target/i686-unknown-linux-musl/release/prune
+          strip target/aarch64-unknown-linux-musl/release/prune
+          zip -r target/x86_64-unknown-linux-musl/release/prune_linux_amd64.tar.gz target/x86_64-unknown-linux-musl/release/prune
+          tar -cvzf target/i686-unknown-linux-musl/release/prune_darwin_amd64.tar.gz target/i686-unknown-linux-musl/release/prune
+          tar -cvzf target/aarch64-unknown-linux-musl/release/prune_darwin_amd64.tar.gz target/aarch64-unknown-linux-musl/release/prune
 
       - name: Build (mac)
         if: startsWith(matrix.os, 'macOS')
@@ -131,9 +131,9 @@ jobs:
             target/aarch64-pc-windows-msvc/release/prune_window_arm64.tar.gz
             target/x86_64-pc-windows-msvc/release/prune_window_amd64.tar.gz
 
-            target/x86_64-unknown-linux-gnu/release/prune_linux_amd64.tar.gz
-            target/i686-unknown-linux-gnu/release/prune_linux_386.tar.gz
-            target/aarch64-unknown-linux-gnu/release/prune_linux_arm64.tar.gz
+            target/x86_64-unknown-linux-musl/release/prune_linux_amd64.tar.gz
+            target/i686-unknown-linux-musl/release/prune_linux_386.tar.gz
+            target/aarch64-unknown-linux-musl/release/prune_linux_arm64.tar.gz
 
             target/x86_64-apple-darwin/release/prune_darwin_amd64.tar.gz
           draft: true
