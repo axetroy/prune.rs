@@ -86,9 +86,6 @@ jobs:
           cargo build --release --locked --target x86_64-unknown-linux-musl
           cargo build --release --locked --target i686-unknown-linux-musl
           cargo build --release --locked --target aarch64-unknown-linux-musl
-          strip target/x86_64-unknown-linux-musl/release/prune
-          strip target/i686-unknown-linux-musl/release/prune
-          strip target/aarch64-unknown-linux-musl/release/prune
           zip -r target/x86_64-unknown-linux-musl/release/prune_linux_amd64.tar.gz target/x86_64-unknown-linux-musl/release/prune
           tar -cvzf target/i686-unknown-linux-musl/release/prune_darwin_amd64.tar.gz target/i686-unknown-linux-musl/release/prune
           tar -cvzf target/aarch64-unknown-linux-musl/release/prune_darwin_amd64.tar.gz target/aarch64-unknown-linux-musl/release/prune
@@ -100,8 +97,6 @@ jobs:
           rustup target add aarch64-apple-darwin
           cargo build --release --locked --target x86_64-apple-darwin
           cargo build --release --locked --target aarch64-apple-darwin
-          strip target/x86_64-apple-darwin/release/prune
-          strip target/aarch64-apple-darwin/release/prune
           tar -cvzf target/x86_64-apple-darwin/release/prune_darwin_amd64.tar.gz target/x86_64-apple-darwin/release/prune
           tar -cvzf target/aarch64-apple-darwin/release/prune_darwin_amd64.tar.gz target/aarch64-apple-darwin/release/prune
 
