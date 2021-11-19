@@ -101,7 +101,7 @@ jobs:
           startsWith(github.repository, 'axetroy') &&
           startsWith(github.ref, 'refs/tags/')
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GT_TOKEN }}
         with:
           files: |
             target/release/prune-x86_64-pc-windows-msvc.zip
