@@ -30,7 +30,7 @@ fn walk(dir: PathBuf, ruler: &Ruler) {
 
         if p.is_dir() {
             if ruler.folder.contains(&name) {
-                if ruler.check_only {
+                if *ruler.check_only {
                     println!("{}", absolute_path(p).unwrap().to_str().unwrap())
                 } else {
                     fs::remove_dir_all(p.as_path()).unwrap()
@@ -38,16 +38,14 @@ fn walk(dir: PathBuf, ruler: &Ruler) {
                 continue;
             }
 
-            walk(p, &ruler);
-        } else {
-            if ruler.file.contains(&name) {
-                if ruler.check_only {
-                    println!("{}", absolute_path(p).unwrap().to_str().unwrap())
-                } else {
-                    fs::remove_file(p.as_path()).unwrap()
-                }
-                continue;
+            walk(p, ruler);
+        } else if ruler.file.contains(&name) {
+            if *ruler.check_only {
+                println!("{}", absolute_path(p).unwrap().to_str().unwrap())
+            } else {
+                fs::remove_file(p.as_path()).unwrap()
             }
+            continue;
         }
     }
 }
@@ -56,7 +54,7 @@ struct Ruler<'a> {
     ignore: Vec<&'a str>,
     folder: Vec<&'a str>,
     file: Vec<&'a str>,
-    check_only: bool,
+    check_only: &'a bool,
 }
 
 fn main() {
@@ -78,20 +76,20 @@ fn main() {
         ignore: vec![".git"],
         folder: vec!["node_modules", "bowerComponents"],
         file: vec![".DS_Store", ".AppleDouble", ".DS_Store"],
-        check_only: true,
+        check_only: &true,
     };
 
     // You can check the value provided by positional arguments, or option arguments
     let root = if let Some(i) = matches.value_of("ROOT") {
         Path::new(i).to_path_buf()
     } else {
-        env::current_dir().unwrap().to_path_buf()
+        env::current_dir().unwrap()
     };
 
     // You can check the value provided by positional arguments, or option arguments
     if matches.is_present("remove") {
-        ruler.check_only = false;
+        ruler.check_only = &false;
     }
 
-    walk(root.to_path_buf(), &ruler);
+    walk(root, &ruler);
 }

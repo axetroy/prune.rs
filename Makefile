@@ -12,6 +12,9 @@ default:
 run:
 	cargo run
 
+lint:
+	cargo clippy -- -D warnings
+
 format-check:
 	cargo fmt --all -- --check
 
