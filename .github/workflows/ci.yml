@@ -96,9 +96,9 @@ jobs:
           rustup target add x86_64-apple-darwin
           rustup target add aarch64-apple-darwin
           cargo build --release --locked --target x86_64-apple-darwin
-          cargo build --release --locked --target aarch64-apple-darwin
+          # cargo build --release --locked --target aarch64-apple-darwin
           tar -cvzf target/x86_64-apple-darwin/release/prune_darwin_amd64.tar.gz target/x86_64-apple-darwin/release/prune
-          tar -cvzf target/aarch64-apple-darwin/release/prune_darwin_amd64.tar.gz target/aarch64-apple-darwin/release/prune
+          # tar -cvzf target/aarch64-apple-darwin/release/prune_darwin_amd64.tar.gz target/aarch64-apple-darwin/release/prune
 
       - name: Build (windows)
         if: startsWith(matrix.os, 'windows')
