@@ -93,6 +93,5 @@ fn main() {
         ruler.check_only = false;
     }
 
-
     walk(root.to_path_buf(), &ruler);
 }

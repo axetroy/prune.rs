@@ -12,5 +12,8 @@ default:
 run:
 	cargo run
 
-format:
+format-check:
 	cargo fmt --all -- --check
+
+format:
+	cargo fmt --all
