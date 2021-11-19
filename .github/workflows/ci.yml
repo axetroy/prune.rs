@@ -70,28 +70,30 @@ jobs:
       - name: Run cargo clippy
         run: cargo clippy -- -D warnings
 
-      - name: Build release
-        run: cargo build --release --locked
-
       - name: Run cargo test
         run: cargo test --locked
 
-      - name: Pre-release (linux)
+      - name: Build (linux)
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          strip target/release/prune
-          zip -r target/release/prune_linux_amd64.tar.gz target/release/prune
+          cargo build --release --locked --target x86_64-unknown-linux-gnu
+          strip target/x86_64-unknown-linux-gnu/prune
+          zip -r target/x86_64-unknown-linux-gnu/prune_linux_amd64.tar.gz target/x86_64-unknown-linux-gnu/prune
 
-      - name: Pre-release (mac)
+      - name: Build (mac)
         if: startsWith(matrix.os, 'macOS')
         run: |
-          strip target/release/prune
-          tar -cvzf target/release/prune_darwin_amd64.tar.gz target/release/prune
+          cargo build --release --locked --target x86_64-apple-darwin
+          strip target/x86_64-apple-darwin/prune
+          tar -cvzf target/x86_64-apple-darwin/prune_darwin_amd64.tar.gz target/x86_64-apple-darwin/prune
 
-      - name: Pre-release (windows)
+      - name: Build (windows)
         if: startsWith(matrix.os, 'windows')
         run: |
-          tar -cvzf target/release/prune_window_amd64.tar.gz target/release/prune.exe
+          cargo build --release --locked --target x86_64-pc-windows-msvc
+          tar -cvzf target/x86_64-pc-windows-msvc/prune_window_amd64.tar.gz target/x86_64-pc-windows-msvc/prune.exe
+          cargo build --release --locked --target i686-pc-windows-msvc
+          tar -cvzf target/i686-pc-windows-msvc/prune_window_amd64.tar.gz target/i686-pc-windows-msvc/prune.exe
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -102,7 +104,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GT_TOKEN }}
         with:
           files: |
-            target/release/prune_window_amd64.tar.gz
-            target/release/prune_linux_amd64.tar.gz
-            target/release/prune_darwin_amd64.tar.gz
+            target/i686-pc-windows-msvc/prune_window_386.tar.gz
+            target/x86_64-pc-windows-msvc/prune_window_amd64.tar.gz
+            target/x86_64-unknown-linux-gnu/prune_linux_amd64.tar.gz
+            target/x86_64-apple-darwin/prune_darwin_amd64.tar.gz
           draft: true
