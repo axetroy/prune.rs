@@ -79,21 +79,19 @@ jobs:
       - name: Pre-release (linux)
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          cd target/release
-          strip prune
-          zip -r prune-x86_64-unknown-linux-gnu.zip prune
+          strip target/release/prune
+          zip -r target/release/prune-x86_64-unknown-linux-gnu.tar.gz target/release/prune
 
       - name: Pre-release (mac)
         if: startsWith(matrix.os, 'macOS')
         run: |
-          cd target/release
-          strip prune
-          zip -r prune-x86_64-apple-darwin.zip prune
+          strip target/release/prune
+          tar -cvzf target/release/prune-x86_64-apple-darwin.tar.gz target/release/prune
 
       - name: Pre-release (windows)
         if: startsWith(matrix.os, 'windows')
         run: |
-          Compress-Archive -CompressionLevel Optimal -Force -Path target/release/prune.exe -DestinationPath target/release/prune-x86_64-pc-windows-msvc.zip
+          tar -cvzf target/release/prune-x86_64-pc-windows-msvc.tar.gz target/release/prune.exe
 
       - name: Release
         uses: softprops/action-gh-release@v1
