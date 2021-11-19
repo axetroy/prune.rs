@@ -102,7 +102,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GT_TOKEN }}
         with:
           files: |
-            target/release/prune-x86_64-pc-windows-msvc.zip
-            target/release/prune-x86_64-unknown-linux-gnu.zip
-            target/release/prune-x86_64-apple-darwin.zip
+            target/release/prune-x86_64-pc-windows-msvc.tar.gz
+            target/release/prune-x86_64-unknown-linux-gnu.tar.gz
+            target/release/prune-x86_64-apple-darwin.tar.gz
           draft: true
