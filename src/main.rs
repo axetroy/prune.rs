@@ -31,7 +31,7 @@ fn walk(dir: PathBuf, ruler: &Ruler) {
         if p.is_dir() {
             if ruler.folder.contains(&name) {
                 if ruler.check_only {
-                    println!("{:?}", absolute_path(p).unwrap())
+                    println!("{}", absolute_path(p).unwrap().to_str().unwrap())
                 } else {
                     fs::remove_dir_all(p.as_path()).unwrap()
                 }
@@ -42,7 +42,7 @@ fn walk(dir: PathBuf, ruler: &Ruler) {
         } else {
             if ruler.file.contains(&name) {
                 if ruler.check_only {
-                    println!("{:?}", absolute_path(p).unwrap())
+                    println!("{}", absolute_path(p).unwrap().to_str().unwrap())
                 } else {
                     fs::remove_file(p.as_path()).unwrap()
                 }
@@ -82,16 +82,17 @@ fn main() {
     };
 
     // You can check the value provided by positional arguments, or option arguments
-    if let Some(i) = matches.value_of("ROOT") {
-        println!("Value for input: {}", i);
-    }
+    let root = if let Some(i) = matches.value_of("ROOT") {
+        Path::new(i).to_path_buf()
+    } else {
+        env::current_dir().unwrap().to_path_buf()
+    };
 
     // You can check the value provided by positional arguments, or option arguments
     if matches.is_present("remove") {
         ruler.check_only = false;
     }
 
-    let cwd = env::current_dir().unwrap();
 
-    walk(cwd.to_path_buf(), &ruler);
+    walk(root.to_path_buf(), &ruler);
 }
