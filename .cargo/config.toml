@@ -1,3 +1,11 @@
 [target.aarch64-unknown-linux-musl]
 linker = "aarch64-linux-gnu-gcc"
-rustflags = [ "-C", "target-feature=+crt-static", "-C", "link-arg=-lgcc" ]
+rustflags = [ "-C", "target-feature=+crt-static", "-C", "link-arg=-slgcc" ]
+
+[target.x86_64-unknown-linux-musl]
+linker = "x86_64-linux-gnu-gcc"
+rustflags = [ "-C", "target-feature=+crt-static", "-C", "link-arg=-slgcc" ]
+
+[target.i686-unknown-linux-musl]
+linker = "i686-linux-gnu-gcc"
+rustflags = [ "-C", "target-feature=+crt-static", "-C", "link-arg=-slgcc" ]
