@@ -131,4 +131,4 @@ jobs:
 
             target/x86_64-apple-darwin/release/prune_darwin_amd64.tar.gz
             target/aarch64-apple-darwin/release/prune_darwin_arm64.tar.gz
-          draft: true
+          draft: false
