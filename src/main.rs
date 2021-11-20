@@ -18,34 +18,36 @@ pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
 }
 
 fn walk(dir: PathBuf, ruler: &Ruler) {
-    let paths = fs::read_dir(dir).unwrap();
+    if let Ok(paths) = fs::read_dir(dir) {
+        for path in paths {
+            if let Ok(r) = path {
+                let p = r.path();
+                let name = p.file_name().unwrap().to_str().unwrap();
 
-    for path in paths {
-        let p = path.unwrap().path();
-        let name = p.file_name().unwrap().to_str().unwrap();
-
-        if ruler.ignore.contains(&name) {
-            continue;
-        }
-
-        if p.is_dir() {
-            if ruler.folder.contains(&name) {
-                if *ruler.check_only {
-                    println!("{}", absolute_path(p).unwrap().to_str().unwrap())
-                } else {
-                    fs::remove_dir_all(p.as_path()).unwrap()
+                if ruler.ignore.contains(&name) {
+                    continue;
                 }
-                continue;
-            }
 
-            walk(p, ruler);
-        } else if ruler.file.contains(&name) {
-            if *ruler.check_only {
-                println!("{}", absolute_path(p).unwrap().to_str().unwrap())
-            } else {
-                fs::remove_file(p.as_path()).unwrap()
+                if p.is_dir() {
+                    if ruler.folder.contains(&name) {
+                        if *ruler.check_only {
+                            println!("{}", absolute_path(p).unwrap().to_str().unwrap())
+                        } else {
+                            fs::remove_dir_all(p.as_path()).unwrap()
+                        }
+                        continue;
+                    }
+
+                    walk(p, ruler);
+                } else if ruler.file.contains(&name) {
+                    if *ruler.check_only {
+                        println!("{}", absolute_path(p).unwrap().to_str().unwrap())
+                    } else {
+                        fs::remove_file(p.as_path()).unwrap()
+                    }
+                    continue;
+                }
             }
-            continue;
         }
     }
 }
@@ -59,6 +61,7 @@ struct Ruler<'a> {
 
 fn main() {
     let matches = App::new("prune")
+        .bin_name("prune")
         .version("v0.1.0")
         .author("Axetroy <axetroy.dev@gmail.com>")
         .about("Prune everything")
