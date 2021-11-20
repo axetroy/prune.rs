@@ -1,9 +1,11 @@
 use clap::{App, Arg};
+use futures::executor;
 use std::env;
 use std::fs;
 use std::io;
 use std::path::Path;
 use std::path::PathBuf;
+use async_recursion::async_recursion;
 
 pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
     let path = path.as_ref();
@@ -17,7 +19,8 @@ pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
     Ok(absolute_path)
 }
 
-fn walk(dir: PathBuf, ruler: &Ruler) {
+#[async_recursion]
+async fn walk<'a>(dir: PathBuf, ruler: &'a Ruler<'a>) {
     if let Ok(paths) = fs::read_dir(dir) {
         for path in paths.flatten() {
             let p = path.path();
@@ -36,7 +39,7 @@ fn walk(dir: PathBuf, ruler: &Ruler) {
                     continue;
                 }
 
-                walk(p, ruler);
+                walk(p, ruler).await;
             } else if ruler.file.contains(&name) {
                 println!("{}", absolute_path(p).unwrap().to_str().unwrap());
                 if !(*ruler.check_only) {
@@ -73,7 +76,7 @@ fn main() {
 
     let mut ruler = Ruler {
         ignore: vec![".git"],
-        folder: vec!["node_modules", "bowerComponents"],
+        folder: vec!["node_modules", "bowerComponents", ".cache"],
         file: vec![".DS_Store", ".AppleDouble", ".DS_Store"],
         check_only: &true,
     };
@@ -90,5 +93,7 @@ fn main() {
         ruler.check_only = &false;
     }
 
-    walk(root, &ruler);
+    let f = walk(root, &ruler);
+
+    executor::block_on(f);
 }
