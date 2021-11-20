@@ -93,7 +93,6 @@ jobs:
       - name: Build (mac)
         if: startsWith(matrix.os, 'macOS')
         run: |
-          brew install llvm --with-clang --with-lld --with-lldb
           rustup target add x86_64-apple-darwin
           rustup target add aarch64-apple-darwin
           cargo build --release --locked --target x86_64-apple-darwin
