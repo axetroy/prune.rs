@@ -29,20 +29,18 @@ fn walk(dir: PathBuf, ruler: &Ruler) {
 
             if p.is_dir() {
                 if ruler.folder.contains(&name) {
-                    if *ruler.check_only {
-                        println!("{}", absolute_path(p).unwrap().to_str().unwrap())
-                    } else {
-                        fs::remove_dir_all(p.as_path()).unwrap()
+                    println!("{}", absolute_path(p).unwrap().to_str().unwrap());
+                    if !(*ruler.check_only) {
+                        fs::remove_dir_all(path.path().as_path()).unwrap()
                     }
                     continue;
                 }
 
                 walk(p, ruler);
             } else if ruler.file.contains(&name) {
-                if *ruler.check_only {
-                    println!("{}", absolute_path(p).unwrap().to_str().unwrap())
-                } else {
-                    fs::remove_file(p.as_path()).unwrap()
+                println!("{}", absolute_path(p).unwrap().to_str().unwrap());
+                if !(*ruler.check_only) {
+                    fs::remove_file(path.path().as_path()).unwrap()
                 }
                 continue;
             }
