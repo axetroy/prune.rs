@@ -1,8 +1,10 @@
 use async_recursion::async_recursion;
 use clap::{App, Arg};
 use futures::executor;
-use std::path::{Path, PathBuf};
-use std::{env, fs, io};
+use std::{
+    env, fs, io,
+    path::{Path, PathBuf},
+};
 
 pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
     let path = path.as_ref();
