@@ -11,21 +11,21 @@ The tool will traverse the target directory, look for files/directories that can
 
 ### Install
 
-1. Shell (Mac/Linux)
+1.  Shell (Mac/Linux)
 
-```bash
-curl -fsSL https://github.com/release-lab/install/raw/v1/install.sh | bash -s -- -r=axetroy/prune.rs -e=prune
-```
+    ```bash
+    curl -fsSL https://github.com/release-lab/install/raw/v1/install.sh | bash -s -- -r=axetroy/prune.rs -e=prune
+    ```
 
-2. PowerShell (Windows):
+2.  PowerShell (Windows):
 
-```powershell
-$r="axetroy/prune.rs";$e="prune";iwr https://github.com/release-lab/install/raw/v1/install.ps1 -useb | iex
-```
+    ```powershell
+    $r="axetroy/prune.rs";$e="prune";iwr https://github.com/release-lab/install/raw/v1/install.ps1 -useb | iex
+    ```
 
-3. [Github release page](https://github.com/axetroy/prune.rs/releases) (All platforms)
+3.  [Github release page](https://github.com/axetroy/prune.rs/releases) (All platforms)
 
-download the executable file and put the executable file to `$PATH`
+    download the executable file and put the executable file to `$PATH`
 
 ## Usage
 
