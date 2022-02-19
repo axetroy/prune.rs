@@ -1,5 +1,5 @@
 use async_recursion::async_recursion;
-use clap::{App, Arg};
+use clap::{Arg, Command};
 use futures::executor;
 use std::{
     env, fs, io,
@@ -58,7 +58,7 @@ struct Ruler<'a> {
 }
 
 fn main() {
-    let matches = App::new("prune")
+    let matches = Command::new("prune")
         .bin_name("prune")
         .version("v0.1.0")
         .author("Axetroy <axetroy.dev@gmail.com>")
@@ -68,9 +68,9 @@ fn main() {
                 .short('r')
                 .long("remove")
                 .takes_value(false)
-                .about("remove file, defaults check only"),
+                .help("remove file, defaults check only"),
         )
-        .arg(Arg::new("ROOT").about("prune dir").required(true).index(1))
+        .arg(Arg::new("ROOT").help("prune dir").required(true).index(1))
         .get_matches();
 
     let mut ruler = Ruler {
