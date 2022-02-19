@@ -74,8 +74,8 @@ fn main() {
         .get_matches();
 
     let mut ruler = Ruler {
-        ignore: vec![".git"],
-        folder: vec!["node_modules", "bowerComponents", ".cache"],
+        ignore: vec![".git", ".vscode", ".github", ".idea"],
+        folder: vec!["node_modules", "bowerComponents", ".cache", ".temp"],
         file: vec![".DS_Store", ".AppleDouble", ".DS_Store"],
         check_only: &true,
     };
