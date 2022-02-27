@@ -144,6 +144,8 @@ fn main() {
     // You can check the value provided by positional arguments, or option arguments
     if matches.is_present("remove") {
         ruler.check_only = &false;
+    } else {
+        ruler.check_only = &true;
     }
 
     let f = walk(root, &ruler);
