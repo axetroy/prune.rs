@@ -7,7 +7,7 @@
 
 An extremely fast tool for prune your file-system written in Rust
 
-The tool will traverse the target directory, look for files/directories that can be deleted (eg. `node_modules`/`bower_components`/`.temp`/`.dist`) and delete them to free up your hard disk space.
+The tool will traverse the target directory, look for files/directories that can be deleted (eg. `node_modules`/`bower_components`/`.temp`/`.dist`) and delete them to free up your hard disk space. [see the all rulers](rulers.txt)
 
 ### Install
 
