@@ -84,12 +84,15 @@ jobs:
           rustup target add x86_64-unknown-linux-musl
           rustup target add i686-unknown-linux-musl
           rustup target add aarch64-unknown-linux-musl
+          rustup target add mips64el-unknown-linux-gnuabi64
           cargo build --release --locked --target x86_64-unknown-linux-musl
           cargo build --release --locked --target i686-unknown-linux-musl
           cargo build --release --locked --target aarch64-unknown-linux-musl
+          cargo build --release --locked --target mips64el-unknown-linux-gnuabi64
           tar -cvzf target/x86_64-unknown-linux-musl/release/prune_linux_amd64.tar.gz --directory=target/x86_64-unknown-linux-musl/release prune
           tar -cvzf target/i686-unknown-linux-musl/release/prune_linux_386.tar.gz --directory=target/i686-unknown-linux-musl/release prune
           tar -cvzf target/aarch64-unknown-linux-musl/release/prune_linux_arm64.tar.gz --directory=target/aarch64-unknown-linux-musl/release prune
+          tar -cvzf target/mips64el-unknown-linux-gnuabi64/release/prune_linux_mips64el.tar.gz --directory=target/mips64el-unknown-linux-gnuabi64/release prune
 
       - name: Build (mac)
         if: startsWith(matrix.os, 'macOS')
@@ -130,6 +133,7 @@ jobs:
             target/x86_64-unknown-linux-musl/release/prune_linux_amd64.tar.gz
             target/i686-unknown-linux-musl/release/prune_linux_386.tar.gz
             target/aarch64-unknown-linux-musl/release/prune_linux_arm64.tar.gz
+            target/mips64el-unknown-linux-gnuabi64/release/prune_linux_mips64el.tar.gz
 
             target/x86_64-apple-darwin/release/prune_darwin_amd64.tar.gz
             target/aarch64-apple-darwin/release/prune_darwin_arm64.tar.gz
