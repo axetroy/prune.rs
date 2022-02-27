@@ -40,7 +40,8 @@ mod tests {
                 .unwrap()
                 .to_string()
                 .as_str()
-                .trim_end_matches("/"),
+                .trim_end_matches("/")
+                .trim_end_matches("\\"),
             env::current_dir().ok().unwrap().to_str().unwrap()
         );
 
