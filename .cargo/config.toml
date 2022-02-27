@@ -9,7 +9,9 @@ linker = "aarch64-linux-gnu-gcc"
 rustflags = [ "-C", "target-feature=+crt-static", "-C", "link-arg=-lgcc"]
 
 [target.mips64el-unknown-linux-gnuabi64]
-linker = "mips64el-unknown-linux-gnuabi64"
+rustflags = [ "-C", "target-feature=+crt-static" ]
+
+[target.mips64-unknown-linux-gnuabi64]
 rustflags = [ "-C", "target-feature=+crt-static" ]
 
 [target.x86_64-apple-darwin]
