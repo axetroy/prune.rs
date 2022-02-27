@@ -23,7 +23,7 @@ The tool will traverse the target directory, look for files/directories that can
     $r="axetroy/prune.rs";$e="prune";iwr https://github.com/release-lab/install/raw/v1/install.ps1 -useb | iex
     ```
 
-3.  [Github release page](https://github.com/axetroy/prune.rs/releases) (All platforms)
+3.  [Github release page](https://github.com/axetroy/prune.rs/releases)
 
     download the executable file and put the executable file to `$PATH`
 
