@@ -129,7 +129,12 @@ fn main() {
                 .takes_value(false)
                 .help("remove file, defaults check only"),
         )
-        .arg(Arg::new("ROOT").help("The target directory you want to prune").required(true).index(1))
+        .arg(
+            Arg::new("ROOT")
+                .help("The target directory you want to prune")
+                .required(true)
+                .index(1),
+        )
         .get_matches();
 
     // You can check the value provided by positional arguments, or option arguments
