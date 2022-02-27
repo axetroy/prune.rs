@@ -8,7 +8,7 @@ use std::{
 mod ruler;
 use ruler::{parse_rules, Ruler};
 
-pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
+pub fn get_absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
     let path = path.as_ref();
 
     let absolute_path = if path.is_absolute() {
@@ -33,7 +33,7 @@ async fn walk<'a>(dir: PathBuf, ruler: &'a Ruler<'a>) {
 
             if p.is_dir() {
                 if ruler.folder.contains(&name.to_string()) {
-                    println!("{}", absolute_path(p).unwrap().to_str().unwrap());
+                    println!("{}", get_absolute_path(p).unwrap().to_str().unwrap());
                     if !(*ruler.check_only) {
                         fs::remove_dir_all(path.path().as_path()).unwrap()
                     }
@@ -42,7 +42,7 @@ async fn walk<'a>(dir: PathBuf, ruler: &'a Ruler<'a>) {
 
                 walk(p, ruler).await;
             } else if ruler.file.contains(&name.to_string()) {
-                println!("{}", absolute_path(p).unwrap().to_str().unwrap());
+                println!("{}", get_absolute_path(p).unwrap().to_str().unwrap());
                 if !(*ruler.check_only) {
                     fs::remove_file(path.path().as_path()).unwrap()
                 }
