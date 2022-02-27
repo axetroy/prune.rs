@@ -8,13 +8,59 @@ use std::{
 fn get_absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
     let path = path.as_ref();
 
-    let absolute_path = if path.is_absolute() {
-        path.to_path_buf()
+    if path.is_absolute() {
+        Ok(path.to_path_buf())
     } else {
-        env::current_dir()?.join(path)
-    };
+        let r = env::current_dir();
+        if r.is_err() {
+            Err(r.err().unwrap())
+        } else {
+            Ok(r.unwrap().join(path))
+        }
+    }
+}
 
-    Ok(absolute_path)
+#[cfg(test)]
+mod tests {
+    use std::{env, path::PathBuf};
+
+    use crate::walker::get_absolute_path;
+
+    #[test]
+    fn test_get_absolute_path() {
+        let p1 = PathBuf::new();
+        let r1 = get_absolute_path(p1);
+
+        assert!(!r1.is_err());
+        assert!(r1.is_ok());
+
+        assert_eq!(
+            r1.unwrap()
+                .to_str()
+                .unwrap()
+                .to_string()
+                .as_str()
+                .trim_end_matches("/"),
+            env::current_dir().ok().unwrap().to_str().unwrap()
+        );
+
+        let mut p2 = PathBuf::new();
+        p2.push("__test__");
+        let r2 = get_absolute_path(p2);
+
+        assert!(!r2.is_err());
+        assert!(r2.is_ok());
+
+        assert_eq!(
+            r2.unwrap().to_str().unwrap(),
+            env::current_dir()
+                .ok()
+                .unwrap()
+                .join("__test__")
+                .to_str()
+                .unwrap()
+        );
+    }
 }
 
 #[async_recursion]
