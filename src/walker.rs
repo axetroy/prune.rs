@@ -12,10 +12,10 @@ fn get_absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
         Ok(path.to_path_buf())
     } else {
         let r = env::current_dir();
-        if r.is_err() {
-            Err(r.err().unwrap())
+        if let Ok(r) = r {
+            Ok(r.join(path))
         } else {
-            Ok(r.unwrap().join(path))
+            Err(r.err().unwrap())
         }
     }
 }
