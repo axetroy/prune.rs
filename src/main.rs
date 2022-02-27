@@ -77,17 +77,17 @@ fn parse_rules() -> Ruler<'static> {
     for mut line in lines {
         line = line.trim();
 
-        if line.len() == 0 {
+        if line.is_empty() {
             continue;
         }
 
-        let first = &line.chars().nth(0).unwrap().to_string();
+        let first = &line.chars().next().unwrap().to_string();
 
         if first == "#" {
             continue;
         }
 
-        let s = line.find(" ").unwrap();
+        let s = line.find(' ').unwrap();
 
         if s > 1 {
             panic!("Invalid ruler: {}", line);
