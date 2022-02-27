@@ -31,17 +31,14 @@ The tool will traverse the target directory, look for files/directories that can
 
 ```sh
 $ prune --help
-prune v0.1.0
-
 Axetroy <axetroy.dev@gmail.com>
-
-Prune everything
+Streamline your disk space and delete some unnecessary files
 
 USAGE:
     prune [OPTIONS] <ROOT>
 
 ARGS:
-    <ROOT>    prune dir
+    <ROOT>    The target directory you want to prune
 
 OPTIONS:
     -h, --help       Print help information

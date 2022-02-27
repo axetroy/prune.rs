@@ -121,7 +121,7 @@ fn main() {
         .bin_name("prune")
         .version("v0.1.0")
         .author("Axetroy <axetroy.dev@gmail.com>")
-        .about("Prune everything")
+        .about("Streamline your disk space and delete some unnecessary files")
         .arg(
             Arg::new("remove")
                 .short('r')
@@ -129,7 +129,7 @@ fn main() {
                 .takes_value(false)
                 .help("remove file, defaults check only"),
         )
-        .arg(Arg::new("ROOT").help("prune dir").required(true).index(1))
+        .arg(Arg::new("ROOT").help("The target directory you want to prune").required(true).index(1))
         .get_matches();
 
     // You can check the value provided by positional arguments, or option arguments
