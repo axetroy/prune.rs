@@ -8,6 +8,10 @@ rustflags = [ "-C", "target-feature=+crt-static"]
 linker = "aarch64-linux-gnu-gcc"
 rustflags = [ "-C", "target-feature=+crt-static", "-C", "link-arg=-lgcc"]
 
+[target.mips-unknown-linux-gnu]
+linker = "mips-linux-gnu-gcc"
+rustflags = ["-C", "target-feature=+crt-static", "-C", "link-arg=-lgcc"]
+
 [target.mips64-unknown-linux-gnuabi64]
 linker = "mips64-linux-gnuabi64-gcc"
 rustflags = ["-C", "target-feature=+crt-static", "-C", "link-arg=-lgcc"]
