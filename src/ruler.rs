@@ -73,8 +73,22 @@ mod tests {
         let ruler = parse_rules();
 
         assert_eq!(ruler.ignore, vec![".git", ".github", ".idea", ".vscode"]);
-        assert_eq!(ruler.folder, vec!["node_modules", "bower_components", ".temp", ".dist"]);
-        assert_eq!(ruler.file, vec![".DS_Store", ".AppleDouble", ".LSOverride", "Thumbs.db", "Thumbs.db:encryptable", "ehthumbs.db", "ehthumbs_vista.db"]);
+        assert_eq!(
+            ruler.folder,
+            vec!["node_modules", "bower_components", ".temp", ".dist"]
+        );
+        assert_eq!(
+            ruler.file,
+            vec![
+                ".DS_Store",
+                ".AppleDouble",
+                ".LSOverride",
+                "Thumbs.db",
+                "Thumbs.db:encryptable",
+                "ehthumbs.db",
+                "ehthumbs_vista.db"
+            ]
+        );
         assert_eq!(ruler.check_only, &true);
     }
 }
