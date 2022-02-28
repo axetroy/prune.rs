@@ -5,7 +5,7 @@ pub struct Ruler<'a> {
     pub check_only: &'a bool,
 }
 
-pub fn parse_rules() -> Ruler<'static> {
+pub fn parse_rules<'a>() -> Ruler<'a> {
     let mut ruler = Ruler {
         ignore: vec![],
         folder: vec![],
