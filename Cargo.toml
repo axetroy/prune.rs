@@ -1,6 +1,15 @@
 [package]
 name = "prune"
 version = "0.1.0"
+authors = ["Axetroy <axetroy.dev@gmail.com>"]
+licens = "MIT"
+readme = "README.md"
+keywords = ["prune", "clear"]
+repository = "https://github.com/axetroy/prune.rs"
+description = """
+A cli tool for streamline your disk space and delete some unnecessary files.
+"""
+
 edition = "2021"
 
 [[bin]]
