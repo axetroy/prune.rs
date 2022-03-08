@@ -64,16 +64,16 @@ jobs:
           restore-keys: |
             ${{ matrix.config.os }}-
       - name: Run cargo fmt
-        run: cargo fmt --all -- --check
+        run: make format-check
 
       - name: Run cargo check
-        run: cargo check --locked
+        run: make check
 
       - name: Run cargo clippy
-        run: cargo clippy -- -D warnings
+        run: make lint
 
       - name: Run cargo test
-        run: cargo test --locked
+        run: make test
 
       - name: Build (linux)
         if: startsWith(matrix.os, 'ubuntu')
@@ -132,9 +132,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GT_TOKEN }}
         with:
           files: |
-            target/i686-pc-windows-msvc/release/prune_window_386.tar.gz
-            target/aarch64-pc-windows-msvc/release/prune_window_arm64.tar.gz
-            target/x86_64-pc-windows-msvc/release/prune_window_amd64.tar.gz
+            target/i686-pc-windows-msvc/release/prune_windows_386.tar.gz
+            target/aarch64-pc-windows-msvc/release/prune_windows_arm64.tar.gz
+            target/x86_64-pc-windows-msvc/release/prune_windows_amd64.tar.gz
 
             target/x86_64-unknown-linux-musl/release/prune_linux_amd64.tar.gz
             target/i686-unknown-linux-musl/release/prune_linux_386.tar.gz

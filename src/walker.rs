@@ -31,7 +31,6 @@ mod tests {
         let p1 = PathBuf::new();
         let r1 = get_absolute_path(p1);
 
-        assert!(!r1.is_err());
         assert!(r1.is_ok());
 
         assert_eq!(
@@ -40,8 +39,8 @@ mod tests {
                 .unwrap()
                 .to_string()
                 .as_str()
-                .trim_end_matches("/")
-                .trim_end_matches("\\"),
+                .trim_end_matches('/')
+                .trim_end_matches('\\'),
             env::current_dir().ok().unwrap().to_str().unwrap()
         );
 
@@ -49,7 +48,6 @@ mod tests {
         p2.push("__test__");
         let r2 = get_absolute_path(p2);
 
-        assert!(!r2.is_err());
         assert!(r2.is_ok());
 
         assert_eq!(
