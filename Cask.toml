@@ -1,0 +1,27 @@
+[package]
+name = "github.com/axetroy/prune.rs"
+bin = "prune"
+authors = ["Axetroy <axetroy.dev@gmail.com>"]
+keywords = []
+repository = "https://github.com/axetroy/prune.rs"
+description = """
+An extremely fast tool for prune your file-system written in Rust.
+"""
+license = "MIT"
+
+[darwin]
+x86_64 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_darwin_amd64.tar.gz" }
+aarch64 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_darwin_arm64.tar.gz" }
+
+[windows]
+x86 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_windows_386.tar.gz" }
+x86_64 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_windows_amd64.tar.gz" }
+aarch64 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_windows_arm64.tar.gz" }
+
+[linux]
+x86 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_linux_386.tar.gz" }
+x86_64 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_linux_amd64.tar.gz" }
+aarch64 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_linux_arm64.tar.gz" }
+mips = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_linux_mips.tar.gz" }
+mips64 = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_linux_mips64.tar.gz" }
+mips64el = { url = "https://github.com/axetroy/prune.rs/releases/download/v{version}/prune_linux_mips64el.tar.gz" }
